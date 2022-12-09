@@ -46,14 +46,14 @@ export class AuthService {
 	}
 
 	retrieveMyDetails(): Observable<DetailsModel> {
-		return this.http.get<DetailsModel>("http://localhost:8080/auth/user", {
+		return this.http.get<DetailsModel>(`${this.authUrl}/user`, {
 			headers: environment.headers,
 			withCredentials: environment.withCredentials,
 		});
 	}
 
 	retrieveUser(): Observable<User> {
-		return this.http.get<User>("http://localhost:8080/user", {
+		return this.http.get<User>(`${environment.baseUrl}/user`, {
 			headers: environment.headers,
 			withCredentials: environment.withCredentials,
 		});
@@ -63,7 +63,7 @@ export class AuthService {
 		let body = {
 			email: email,
 		};
-		return this.http.post<Boolean>("http://localhost:8080/user", body, {
+		return this.http.post<Boolean>(`${environment.baseUrl}/user`, body, {
 			headers: environment.headers,
 			withCredentials: environment.withCredentials,
 		});
