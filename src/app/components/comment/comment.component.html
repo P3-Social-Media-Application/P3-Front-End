@@ -1,0 +1,107 @@
+<mat-card class="example-card" *ngIf="inputComment.author">
+	<div
+		*ngIf="currentUser?.id == inputComment?.author?.id"
+		id="close-icon-containter"
+	>
+		<mat-icon
+			id="close-icon"
+			color="warn"
+			(click)="deleteComment(inputComment)"
+			>close</mat-icon
+		>
+	</div>
+
+	<mat-card-header>
+		<img
+			mat-card-avatar
+			src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+		/>
+		<mat-card-title
+			>{{ inputComment.author.firstName }}
+			{{ inputComment.author.lastName }}</mat-card-title
+		>
+		<mat-card-subtitle>{{ inputComment.author.email }}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content id="textSection">
+		<p>
+			{{ inputComment.text }}
+		</p>
+        
+        <div id="optionButtons">
+            <div
+		id="comment-reply-text"
+		(click)="toggleReplyToComment()"
+		*ngIf="inputComment"
+	>
+		<p>reply</p>
+	</div>
+	<div
+		*ngIf="currentUser?.id == inputComment?.author?.id && inputComment"
+		id="edit-reply-text"
+		(click)="toggleEditPost()"
+	>
+		<p>edit</p>
+	</div>
+        </div>
+	</mat-card-content>
+</mat-card>
+
+<!-- <button *ngIf="currentUser.id == inputComment.author.id" mat-raised-button color="warn" (click)="deleteComment(inputComment)" >Delete</button> -->
+
+<div class="comment-reply" align="right">
+	
+
+	<form
+		class="form"
+		*ngIf="replyToComment"
+		[formGroup]="commentForm"
+		(ngSubmit)="submitReply($event)"
+	>
+		<mat-form-field class="full-width" appearance="fill">
+			<mat-label>Make a Post</mat-label>
+			<textarea matInput autofocus formControlName="text"></textarea>
+		</mat-form-field>
+		<div align="end">
+			<button
+				mat-raised-button
+				color="warn"
+				(click)="toggleReplyToComment()"
+			>
+				Cancel
+			</button>
+			<button mat-raised-button color="primary" type="submit">
+				Post
+			</button>
+		</div>
+	</form>
+
+	<form
+		class="editPost"
+		*ngIf="editPost"
+		[formGroup]="commentForm"
+		(ngSubmit)="submitEditedPost($event)"
+	>
+		<mat-form-field class="full-width" appearance="fill">
+			<mat-label>Edit Post</mat-label>
+			<textarea matInput autofocus formControlName="text"></textarea>
+		</mat-form-field>
+
+		<div align="end">
+			<button mat-raised-button color="warn" (click)="toggleEditPost()">
+				Cancel
+			</button>
+			<button mat-raised-button color="primary" type="submit">
+				Edit
+			</button>
+		</div>
+	</form>
+</div>
+<div *ngFor="let comment of inputComment.comments" class="comment-container">
+	<mat-divider></mat-divider>
+	<app-comment
+		[comment]="comment"
+		[currentUser]="currentUser"
+		(deleteCommentEvent)="deleteCommentEvent.emit($event)"
+		(commentEventEmitter)="(commentEventEmitter.emit)"
+	></app-comment>
+</div>

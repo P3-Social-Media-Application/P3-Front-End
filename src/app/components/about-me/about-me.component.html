@@ -1,0 +1,31 @@
+<div *ngIf="myInfo" id="info-display">
+	<p>
+		{{ myInfo }}
+	</p>
+</div>
+
+<div >
+	<form [formGroup]="aboutMe" *ngIf="submitted == false">
+		<mat-form-field class="full-width" appearance="fill">
+			<mat-label>Introduce Yourself!</mat-label>
+			<textarea
+				matInput
+				autofocus
+				formControlName="aboutMe"
+				required
+			></textarea>
+		</mat-form-field>
+	</form>
+	
+	<div id ="aboutMe-buttonContainer">
+		<button *ngIf="submitted == false" mat-raised-button color="primary" (click)="onSubmit()">
+			Submit
+		</button>
+	
+		<button *ngIf="submitted == true" mat-raised-button color="primary" (click)="onEdit()">
+			Edit
+		</button>
+
+	</div>
+	
+</div>

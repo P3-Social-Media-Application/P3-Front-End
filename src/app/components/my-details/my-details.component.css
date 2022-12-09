@@ -1,0 +1,13 @@
+#detailsDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.passbutton {
+    text-align: center;
+}

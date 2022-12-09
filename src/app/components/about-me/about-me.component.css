@@ -1,0 +1,21 @@
+#info-display{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 15px;
+    margin-top: 15px;
+    background-color: white;
+    border-radius: 20px;
+    min-height: 50px;
+}
+
+#info-display p {
+    margin:0;
+    padding:0;
+}
+
+#aboutMe-buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+}

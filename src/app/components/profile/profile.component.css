@@ -1,0 +1,16 @@
+.profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    max-width: fit-content;
+}
+
+.tabs{
+    display:flex;
+    justify-content: center;
+}
