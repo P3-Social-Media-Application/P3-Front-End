@@ -38,6 +38,7 @@ export class PostFeedPageComponent implements OnInit {
 			this.posts = response
 				.filter((post) => post.comment == false)
 				.sort((postA, postB) => postB.id - postA.id);
+				
 		});
 
 		this.authService.retrieveUser().subscribe((response) => {

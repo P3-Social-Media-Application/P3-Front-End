@@ -20,6 +20,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
 import { PetsComponent } from './components/pets/pets.component';
 import { MyDetailsComponent } from './components/my-details/my-details.component';
+import { FriendProfileComponent } from './components/friend-profile/friend-profile.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MyDetailsComponent } from './components/my-details/my-details.component
     AboutMeComponent,
     PetsComponent,
     MyDetailsComponent,
+    FriendProfileComponent,
   ],
   imports: [
     BrowserModule,

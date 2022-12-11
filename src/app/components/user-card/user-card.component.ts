@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import User from "src/app/models/User";
 import { AuthService } from "src/app/services/auth.service";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-user-card",
@@ -18,7 +19,8 @@ export class UserCardComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.http
-			.get("http://ec2-52-55-151-95.compute-1.amazonaws.com:8081/auth/user", {
+			//.get("http://ec2-52-55-151-95.compute-1.amazonaws.com:8081/auth/user", {
+				.get(`${environment.baseUrl}/auth/user`, {
 				withCredentials: true,
 				observe: "response",
 			})

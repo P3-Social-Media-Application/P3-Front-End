@@ -6,7 +6,7 @@
 				>{{ post.author.firstName }}
 				{{ post.author.lastName }}</mat-card-title
 			>
-			<mat-card-subtitle>{{ post.author.email }}</mat-card-subtitle>
+			<mat-card-subtitle><a href='/friend-profile/{{post.author.email}}'>{{ post.author.email }}</a></mat-card-subtitle>
 		</mat-card-header>
 		<img
 			mat-card-image

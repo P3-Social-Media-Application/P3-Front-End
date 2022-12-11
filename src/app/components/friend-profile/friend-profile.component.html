@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class ="friend">
+	<div class ="card">
+	<mat-card class="user-card">
+		<div class="user-circle"></div>
+		<mat-divider></mat-divider>
+		<p style="padding-top: 1em; font-weight: bold;">
+			{{firstName}} {{lastName}}
+		</p>
+		<p>
+			{{email}}
+		</p>
+		
+	</mat-card>
+</div>	
+</div>
+<div class ='deets'>
+	<div id = "detailsDiv">
+		<div id = "identifier">
+			<p>Email Address:</p>
+			<p>First Name:</p>
+			<p>Last Name:</p>
+		</div>
+		<div id = "userInfo">
+			<p>{{email}}</p>
+			<p>{{firstName}}</p>
+			<p>{{lastName}}</p>
+		</div>
+	</div>
+	</div>
+
+	<div id="info-display">
+		<p>
+			{{ myInfo }}
+		</p>
+	</div>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FriendProfileComponent } from './components/friend-profile/friend-profile.component';
 import { LoginComponent } from './components/login/login.component';
 import { PasswordChangeComponent } from './components/password-change/password-change.component';
 import { PostFeedPageComponent } from './components/post-feed-page/post-feed-page.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "post-feed", component: PostFeedPageComponent},
   { path: "password-change", component: PasswordChangeComponent},
   { path: "profile", component: ProfileComponent},
+  { path: "friend-profile/:email", component : FriendProfileComponent}
 ];
 
 @NgModule({
