@@ -52,13 +52,16 @@ export class PostComponent implements OnInit {
 	likecount? : number;
 	canLike? : boolean;
 	postid? : number;
-		getLikes(){
+	userLiked? : any[];
+		
+	getLikes(){
 	this.http.get(`http://localhost:8080/likes/getlikes/${this.postid}`, {withCredentials: true ,observe : "response"}).subscribe(
 			  (res : any ) => {
 				console.log(this.postid);
 				console.log(res.body);
 				this.likecount = res.body.length;
-				
+				this.userLiked = res.body;
+				console.log(this.userLiked)
 			  },
 			  err => {
 				console.log(err);
@@ -68,12 +71,15 @@ export class PostComponent implements OnInit {
 	
 	change(){
 		this.palleteColor = "warn"
-		
+		let element = document.getElementById(`likeButton${this.postid}`);
+		element?.setAttribute("disabled", "true");
 		
 		this.likeModel.likeCount = 1;
 		this.likeModel.likedBy = this.currentUser.email;
 		this.likeModel.postID = this.post.id;
 		this.postid = this.post.id;
+
+
 		this.likes.updateLikes(this.likeModel).subscribe
 		((data) => {
 			console.log(data)
@@ -89,7 +95,24 @@ export class PostComponent implements OnInit {
 	
 
 	ngOnInit(): void {
+		console.log(this.post.id)
+		this.postid = this.post.id
+		this.getLikes();
+		let matchedUser = null;
+		setTimeout(()=> {
+			matchedUser = this.userLiked?.find((like)=> like.likedBy == this.currentUser.email)
+			console.log(matchedUser);
+			if (matchedUser){
+				let element = document.getElementById(`likeButton${this.postid}`);
+				element?.setAttribute("disabled", "true");
+				this.palleteColor = "warn"
+			}
+		},100)
+
 		
+		
+		
+
 	}
 
 	ngOnChanges(){
@@ -146,12 +169,14 @@ export class PostComponent implements OnInit {
 		const Filter = require("leo-profanity");
 		let newPost = new Post(
 			this.post.id,
-			Filter.clean(this.commentForm.value.text || ""),
+			Filter.clean(this.postForm.value.text || ""),
 			this.postForm.value.imageUrl || "",
-			this.authService.currentUser,
+			this.currentUser,
 			this.post.comments,
 			false
+	
 		);
+		console.log(newPost)
 		this.postService.updatePost(newPost).subscribe((response) => {
 			this.post = response;
 			this.toggleEditPost();
