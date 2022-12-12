@@ -11,7 +11,7 @@ export class LikesService {
 
   constructor(private http : HttpClient) {}
     updateLikes(like : LikesModel){
-      return  this.http.post<any>(`http://ec2-52-55-151-95.compute-1.amazonaws.com:8081/likes/addlike`, like, {withCredentials: true , observe: "response" as "body"} )
+      return  this.http.post<any>(`${environment.baseUrl}/likes/addlike`, like, {withCredentials: true , observe: "response" as "body"} )
 
     }
 
