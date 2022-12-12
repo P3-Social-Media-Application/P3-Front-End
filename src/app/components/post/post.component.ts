@@ -175,7 +175,7 @@ export class PostComponent implements OnInit {
 			false
 	
 		);
-		
+		console.log(e)
 		this.postService.updatePost(newPost).subscribe((response) => {
 			this.post = response;
 			this.toggleEditPost();
