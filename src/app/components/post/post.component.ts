@@ -58,6 +58,7 @@ export class PostComponent implements OnInit {
 	getLikes(){
 	this.http.get( `http://ec2-52-55-151-95.compute-1.amazonaws.com:8081/likes/getlikes/${this.postid}`, {withCredentials: true ,observe : "response"}).subscribe(
 			  (res : any ) => {
+				console.log(res)
 				this.likecount = res.body.length;
 				this.userLiked = res.body;
 				
@@ -78,10 +79,10 @@ export class PostComponent implements OnInit {
 		this.likeModel.postID = this.post.id;
 		this.postid = this.post.id;
 
-
+		console.log(this.likeModel);
 		this.likes.updateLikes(this.likeModel).subscribe
 		((data) => {
-			
+			console.log(data);
 			this.getLikes();
 		},
 

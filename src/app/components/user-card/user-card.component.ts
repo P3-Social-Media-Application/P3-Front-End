@@ -25,6 +25,7 @@ export class UserCardComponent implements OnInit {
 			})
 			.subscribe(
 				(res: any) => {
+					console.log(res);
 					this.firstName = res.body.firstName;
 					this.lastName = res.body.lastName;
 					this.email = res.body.email;
