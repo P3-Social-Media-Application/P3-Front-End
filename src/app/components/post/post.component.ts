@@ -5,7 +5,11 @@ import Post from "src/app/models/Post";
 import User from "src/app/models/User";
 import { AuthService } from "src/app/services/auth.service";
 import { PostService } from "src/app/services/post.service";
+import { LikesModel } from "src/app/models/likes";
 import "leo-profanity";
+import { HttpClient } from "@angular/common/http";
+import { LikesService } from "src/app/services/likes.service";
+import { resolveSoa } from "dns";
 
 @Component({
 	selector: "app-post",
@@ -27,6 +31,7 @@ export class PostComponent implements OnInit {
 
 	@Input()
 	currentUser: User;
+	likeModel: any = {};
 	public set value(user: User) {
 		this.currentUser = user;
 	}
@@ -36,10 +41,83 @@ export class PostComponent implements OnInit {
 
 	constructor(
 		private postService: PostService,
-		private authService: AuthService
+		private authService: AuthService,
+		private http : HttpClient,
+		private likes : LikesService
 	) {}
 
-	ngOnInit(): void {}
+
+	
+	palleteColor = "primary";	
+	likecount? : number;
+	canLike? : boolean;
+	postid? : number;
+	userLiked? : any[];
+		
+	getLikes(){
+	this.http.get(`http://localhost:8080/likes/getlikes/${this.postid}`, {withCredentials: true ,observe : "response"}).subscribe(
+			  (res : any ) => {
+				console.log(this.postid);
+				console.log(res.body);
+				this.likecount = res.body.length;
+				this.userLiked = res.body;
+				console.log(this.userLiked)
+			  },
+			  err => {
+				console.log(err);
+			  }
+			 )
+			}
+	
+	change(){
+		this.palleteColor = "warn"
+		let element = document.getElementById(`likeButton${this.postid}`);
+		element?.setAttribute("disabled", "true");
+		
+		this.likeModel.likeCount = 1;
+		this.likeModel.likedBy = this.currentUser.email;
+		this.likeModel.postID = this.post.id;
+		this.postid = this.post.id;
+
+
+		this.likes.updateLikes(this.likeModel).subscribe
+		((data) => {
+			console.log(data)
+			this.getLikes();
+		},
+
+			(error) => {
+				console.log(error);
+				
+			}
+	)}
+
+	
+
+	ngOnInit(): void {
+		console.log(this.post.id)
+		this.postid = this.post.id
+		this.getLikes();
+		let matchedUser = null;
+		setTimeout(()=> {
+			matchedUser = this.userLiked?.find((like)=> like.likedBy == this.currentUser.email)
+			console.log(matchedUser);
+			if (matchedUser){
+				let element = document.getElementById(`likeButton${this.postid}`);
+				element?.setAttribute("disabled", "true");
+				this.palleteColor = "warn"
+			}
+		},100)
+
+		
+		
+		
+
+	}
+
+	ngOnChanges(){
+		
+	}
 
 	toggleReplyToPost = () => {
 		this.replyToPost = !this.replyToPost;
@@ -91,12 +169,14 @@ export class PostComponent implements OnInit {
 		const Filter = require("leo-profanity");
 		let newPost = new Post(
 			this.post.id,
-			Filter.clean(this.commentForm.value.text || ""),
+			Filter.clean(this.postForm.value.text || ""),
 			this.postForm.value.imageUrl || "",
-			this.authService.currentUser,
+			this.currentUser,
 			this.post.comments,
 			false
+	
 		);
+		console.log(newPost)
 		this.postService.updatePost(newPost).subscribe((response) => {
 			this.post = response;
 			this.toggleEditPost();

@@ -3,10 +3,10 @@
 		<mat-card-header>
 			<div mat-card-avatar class="header-image"></div>
 			<mat-card-title
-				>{{ post.author.firstName }}
-				{{ post.author.lastName }}</mat-card-title
+				>{{ post?.author?.firstName }}
+				{{ post?.author?.lastName }}</mat-card-title
 			>
-			<mat-card-subtitle><a href='/friend-profile/{{post.author.email}}'>{{ post.author.email }}</a></mat-card-subtitle>
+			<mat-card-subtitle><a href='/friend-profile/{{post.author.email}}'>{{ post?.author?.email }}</a></mat-card-subtitle>
 		</mat-card-header>
 		<img
 			mat-card-image
@@ -28,6 +28,10 @@
 			</div>
 		</mat-card-content>
 		<mat-card-actions align="end">
+			{{likecount}}
+<button id="likeButton{{postid}}" mat-icon-button [color]=this.palleteColor aria-label="Example icon button with a heart icon" (click)="change()" >
+<mat-icon>favorite</mat-icon>
+ </button>
 			<button *ngIf="post?.author?.id === currentUser?.id" mat-raised-button color="warn" (click)="deletePost(post)">
 				Delete
 			</button>
@@ -38,7 +42,7 @@
 			>
 				Reply
 			</button>
-			<button class = "edit" mat-raised-button color="primary" (click)="toggleEditPost()" >Edit</button>
+			<button class = "edit" *ngIf="post?.author?.id === currentUser?.id" mat-raised-button color="primary" (click)="toggleEditPost()" >Edit</button>
 
 		</mat-card-actions>
 		<form

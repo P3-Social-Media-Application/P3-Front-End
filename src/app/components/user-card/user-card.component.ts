@@ -19,8 +19,7 @@ export class UserCardComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.http
-			//.get("http://ec2-52-55-151-95.compute-1.amazonaws.com:8081/auth/user", {
-				.get(`${environment.baseUrl}/auth/user`, {
+			.get("http://ec2-52-55-151-95.compute-1.amazonaws.com:8081/auth/user", {
 				withCredentials: true,
 				observe: "response",
 			})
