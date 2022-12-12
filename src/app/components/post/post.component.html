@@ -28,6 +28,10 @@
 			</div>
 		</mat-card-content>
 		<mat-card-actions align="end">
+			{{likecount}}
+<button mat-icon-button [color]=this.palleteColor aria-label="Example icon button with a heart icon" (click)="change()" onclick="this.disabled=true">
+<mat-icon>favorite</mat-icon>
+ </button>
 			<button *ngIf="post?.author?.id === currentUser?.id" mat-raised-button color="warn" (click)="deletePost(post)">
 				Delete
 			</button>
