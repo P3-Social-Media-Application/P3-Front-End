@@ -28,3 +28,8 @@
   color:red;
   text-decoration:underline;
 }
+
+#userGroup{
+  display:flex;
+  flex-direction: column;
+}
