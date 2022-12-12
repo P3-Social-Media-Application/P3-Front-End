@@ -43,81 +43,78 @@ export class PostComponent implements OnInit {
 	constructor(
 		private postService: PostService,
 		private authService: AuthService,
-		private http : HttpClient,
-		private likes : LikesService
-	) {}
+		private http: HttpClient,
+		private likes: LikesService
+	) { }
 
 
-	
-	palleteColor = "primary";	
-	likecount? : number;
-	canLike? : boolean;
-	postid? : number;
-	userLiked? : any[];
-		
-	getLikes(){
-		
-	this.http.get( `${environment.baseUrl}/likes/getlikes/${this.postid}`, {withCredentials: true ,observe : "response"}).subscribe(
-			  (res : any ) => {
+
+	palleteColor = "primary";
+	likecount?: number;
+	canLike?: boolean;
+	postid?: number;
+	userLiked?: any[];
+
+	getLikes() {
+
+		this.http.get(`${environment.baseUrl}/likes/getlikes/${this.postid}`, { withCredentials: true, observe: "response" }).subscribe(
+			(res: any) => {
 				console.log(res)
 				this.likecount = res.body.length;
 				this.userLiked = res.body;
-				
-			  },
-			  err => {
+
+			},
+			err => {
 				console.log(err);
-			  }
-			 )
 			}
-	
-	change(){
+		)
+	}
+
+	change() {
 		this.palleteColor = "warn"
 		let element = document.getElementById(`likeButton${this.postid}`);
 		element?.setAttribute("disabled", "true");
-		
-		this.likeModel.likeCount = 1;
+
 		this.likeModel.likedBy = this.currentUser.email;
 		this.likeModel.postID = this.post.id;
 		this.postid = this.post.id;
 
-		console.log(this.likeModel);
 		this.likes.updateLikes(this.likeModel).subscribe
-		((data) => {
-			console.log(data);
-			this.getLikes();
-		},
+			((data) => {
+				this.getLikes();
+			},
+				(error) => {
+					console.log(error);
 
-			(error) => {
-				console.log(error);
-				
-			}
-	)}
+				}
+			)
+	}
 
-	
+
 
 	ngOnInit(): void {
-		
+
 		this.postid = this.post.id
 		this.getLikes();
 		let matchedUser = null;
-		setTimeout(()=> {
-			matchedUser = this.userLiked?.find((like)=> like.likedBy == this.currentUser.email)
-			
-			if (matchedUser){
+		setTimeout(() => {
+			matchedUser = this.userLiked?.find((like) => like.likedBy == this.currentUser.email)
+
+			if (matchedUser) {
 				let element = document.getElementById(`likeButton${this.postid}`);
 				element?.setAttribute("disabled", "true");
 				this.palleteColor = "warn"
 			}
-		},100)
+		}, 100)
 
-		
-		
-		
+
+
+
 
 	}
 
-	ngOnChanges(){
-		
+	ngOnChanges() {
+
 	}
 
 	toggleReplyToPost = () => {
@@ -175,7 +172,7 @@ export class PostComponent implements OnInit {
 			this.currentUser,
 			this.post.comments,
 			false
-	
+
 		);
 		this.postService.updatePost(newPost).subscribe((response) => {
 			this.post = response;
