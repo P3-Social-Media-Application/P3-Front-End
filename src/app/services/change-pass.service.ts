@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PassModel } from '../models/pass-model';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class ChangePassService {
 
-  _url= 'http://localhost:8080/auth/change-password'
+  _url= `${environment.baseUrl}/auth/change-password`
   constructor(private _http: HttpClient) { }
   
   change(passModel:PassModel) {

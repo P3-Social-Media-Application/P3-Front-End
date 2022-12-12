@@ -12,11 +12,21 @@ mat-card{
     margin-top: 15px;
     background-color: white;
     border-radius: 20px;
+    width: 500px;
+    
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    max-width: fit-content;
 }
 
 .friend {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 #info-display{
@@ -34,4 +44,5 @@ mat-card{
 #info-display p {
     margin:0;
     padding:0;
+    width: 500px;
 }
