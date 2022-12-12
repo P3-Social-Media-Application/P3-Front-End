@@ -57,11 +57,9 @@ export class PostComponent implements OnInit {
 	getLikes(){
 	this.http.get(`http://localhost:8080/likes/getlikes/${this.postid}`, {withCredentials: true ,observe : "response"}).subscribe(
 			  (res : any ) => {
-				console.log(this.postid);
-				console.log(res.body);
 				this.likecount = res.body.length;
 				this.userLiked = res.body;
-				console.log(this.userLiked)
+				
 			  },
 			  err => {
 				console.log(err);
@@ -82,7 +80,7 @@ export class PostComponent implements OnInit {
 
 		this.likes.updateLikes(this.likeModel).subscribe
 		((data) => {
-			console.log(data)
+			
 			this.getLikes();
 		},
 
@@ -95,13 +93,13 @@ export class PostComponent implements OnInit {
 	
 
 	ngOnInit(): void {
-		console.log(this.post.id)
+		
 		this.postid = this.post.id
 		this.getLikes();
 		let matchedUser = null;
 		setTimeout(()=> {
 			matchedUser = this.userLiked?.find((like)=> like.likedBy == this.currentUser.email)
-			console.log(matchedUser);
+			
 			if (matchedUser){
 				let element = document.getElementById(`likeButton${this.postid}`);
 				element?.setAttribute("disabled", "true");
@@ -176,7 +174,7 @@ export class PostComponent implements OnInit {
 			false
 	
 		);
-		console.log(newPost)
+		
 		this.postService.updatePost(newPost).subscribe((response) => {
 			this.post = response;
 			this.toggleEditPost();
