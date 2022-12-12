@@ -10,6 +10,7 @@ import "leo-profanity";
 import { HttpClient } from "@angular/common/http";
 import { LikesService } from "src/app/services/likes.service";
 import { resolveSoa } from "dns";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-post",
