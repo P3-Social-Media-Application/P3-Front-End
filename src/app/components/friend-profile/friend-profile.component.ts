@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TransitionCheckState } from '@angular/material/checkbox';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-friend-profile',
@@ -20,7 +21,7 @@ export class FriendProfileComponent implements OnInit {
 
   
     getUserInfo(){
-      this.http.get(`http://localhost:8080/about/get-info/${this.id}`, {withCredentials: true ,observe : "response"}).subscribe(
+      this.http.get(`${environment.baseUrl}/about/get-info/${this.id}`, {withCredentials: true ,observe : "response"}).subscribe(
         (res : any ) => {
           
           this.myInfo = res.body.about_Me
@@ -39,7 +40,7 @@ export class FriendProfileComponent implements OnInit {
     console.log(this.email);
 
     this.http
-			.get(`http://localhost:8080/user/friend/${this.email}`, {
+			.get(`${environment.baseUrl}/user/friend/${this.email}`, {
 				withCredentials: true,
 				observe: "response",
 			})
