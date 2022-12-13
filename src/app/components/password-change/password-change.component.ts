@@ -58,7 +58,7 @@ export class PasswordChangeComponent implements OnInit {
     
     this.empLogin = this.formBuilder.group({
       oldPass: ["",[Validators.required]],
-      newPass: ["",[Validators.required,Validators.minLength(10)]]
+      newPass: ["",[Validators.required]]
     })
   }
 

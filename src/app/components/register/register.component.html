@@ -11,10 +11,10 @@
 			>
 				<mat-card-content>
 					<mat-form-field class="full-width">
-						<input
+						<input type="email"
 							matInput
 							placeholder="Email"
-							formControlName="email"
+							formControlName="email" required
 						/>
 					</mat-form-field>
 					<mat-form-field class="full-width">
@@ -22,26 +22,26 @@
 							matInput
 							placeholder="Password"
 							type="password"
-							formControlName="password"
+							formControlName="password" required
 						/>
 					</mat-form-field>
 					<mat-form-field class="full-width">
 						<input
 							matInput
 							placeholder="First Name"
-							formControlName="firstName"
+							formControlName="firstName" required
 						/>
 					</mat-form-field>
 					<mat-form-field class="full-width">
 						<input
 							matInput
 							placeholder="Last Name"
-							formControlName="lastName"
+							formControlName="lastName" required
 						/>
 					</mat-form-field>
 				</mat-card-content>
 				<p *ngIf="errorMessage" id="errorMessage">{{ errorMessage }}</p>
-				<button
+				<button *ngIf="registerForm.valid"
 					mat-stroked-button
 					color="accent"
 					class="btn-block"

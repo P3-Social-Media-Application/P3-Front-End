@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 
@@ -10,10 +10,10 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class RegisterComponent implements OnInit {
 	registerForm = new FormGroup({
-		firstName: new FormControl(""),
-		lastName: new FormControl(""),
-		email: new FormControl(""),
-		password: new FormControl(""),
+		firstName: new FormControl("", Validators.required),
+		lastName: new FormControl("", Validators.required),
+		email: new FormControl("",[Validators.email, Validators.required]),
+		password: new FormControl("", Validators.required),
 	});
 
 	errorMessage: String;
