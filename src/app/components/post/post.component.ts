@@ -1,5 +1,5 @@
-import { outputAst } from "@angular/compiler";
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
+import { createInjectableType, outputAst } from "@angular/compiler";
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import Post from "src/app/models/Post";
 import User from "src/app/models/User";
@@ -8,9 +8,9 @@ import { PostService } from "src/app/services/post.service";
 import { LikesModel } from "src/app/models/likes";
 import "leo-profanity";
 import { HttpClient } from "@angular/common/http";
-import { LikesService } from "src/app/services/likes.service";
-import { resolveSoa } from "dns";
-import { environment } from "src/environments/environment";
+import { LikesService } from "src/app/services/likes.service"; 
+import { environment } from "src/environments/environment"; 
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 @Component({
 	selector: "app-post",
@@ -33,6 +33,9 @@ export class PostComponent implements OnInit {
 	@Input()
 	currentUser: User;
 	likeModel: any = {};
+
+	videoURLSafe: SafeResourceUrl;
+
 	public set value(user: User) {
 		this.currentUser = user;
 	}
@@ -43,29 +46,34 @@ export class PostComponent implements OnInit {
 	constructor(
 		private postService: PostService,
 		private authService: AuthService,
-		private http: HttpClient,
-		private likes: LikesService
-	) { }
+		private http : HttpClient,
+		private likes : LikesService,
+		public sanitizer: DomSanitizer
+	) {}
 
 
+	isURLVideo():boolean{ 
+		return this.post.imageUrl.includes('https://www.youtube.com/embed/');
+	}
+	
+	palleteColor = "primary";	
+	likecount? : number;
+	canLike? : boolean;
+	postid? : number;
+	userLiked? : any[];
+		
+	getLikes(){
+		
+		this.http.get( `${environment.baseUrl}/likes/getlikes/${this.postid}`, {withCredentials: true ,observe : "response"}).subscribe(
+			  (res : any ) => {
 
-	palleteColor = "primary";
-	likecount?: number;
-	canLike?: boolean;
-	postid?: number;
-	userLiked?: any[];
-
-	getLikes() {
-
-		this.http.get(`${environment.baseUrl}/likes/getlikes/${this.postid}`, { withCredentials: true, observe: "response" }).subscribe(
-			(res: any) => {
-				console.log(res)
 				this.likecount = res.body.length;
 				this.userLiked = res.body;
 
 			},
 			err => {
 				console.log(err);
+
 			}
 		)
 	}
@@ -93,7 +101,7 @@ export class PostComponent implements OnInit {
 
 
 	ngOnInit(): void {
-
+		this.videoURLSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.post.imageUrl);
 		this.postid = this.post.id
 		this.getLikes();
 		let matchedUser = null;
@@ -106,15 +114,6 @@ export class PostComponent implements OnInit {
 				this.palleteColor = "warn"
 			}
 		}, 100)
-
-
-
-
-
-	}
-
-	ngOnChanges() {
-
 	}
 
 	toggleReplyToPost = () => {
