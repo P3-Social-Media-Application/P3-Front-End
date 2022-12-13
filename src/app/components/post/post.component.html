@@ -2,11 +2,18 @@
 	<mat-card>
 		<mat-card-header>
 			<div mat-card-avatar class="header-image"></div>
+			<div id="userGroup">
 			<mat-card-title
 				>{{ post?.author?.firstName }}
 				{{ post?.author?.lastName }}</mat-card-title
 			>
-			<mat-card-subtitle><a href='/friend-profile/{{post.author.email}}'>{{ post?.author?.email }}</a></mat-card-subtitle>
+			<div class= "link" *ngIf="currentUser?.email == post?.author?.email">
+				<mat-card-subtitle><a href='/profile'>{{ post?.author?.email }}</a></mat-card-subtitle>
+			</div>
+			<div class = "link" *ngIf="currentUser?.email !== post?.author?.email">
+				<mat-card-subtitle><a href='/friend-profile/{{post?.author?.email}}'>{{ post?.author?.email }}</a></mat-card-subtitle>
+			</div>
+		</div>
 		</mat-card-header>
  
 		<div *ngIf="post.imageUrl">

@@ -16,11 +16,18 @@
 			mat-card-avatar
 			src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
 		/>
+		<div id="userGroup">
 		<mat-card-title
 			>{{ inputComment.author.firstName }}
 			{{ inputComment.author.lastName }}</mat-card-title
 		>
-		<mat-card-subtitle>{{ inputComment.author.email }}</mat-card-subtitle>
+		<div class= "link" *ngIf="currentUser?.email == inputComment?.author?.email">
+			<mat-card-subtitle><a href='/profile'>{{ inputComment?.author?.email }}</a></mat-card-subtitle>
+		</div>
+		<div class = "link" *ngIf="currentUser?.email !== inputComment?.author?.email">
+			<mat-card-subtitle><a href='/friend-profile/{{inputComment?.author?.email}}'>{{ inputComment?.author?.email }}</a></mat-card-subtitle>
+		</div>
+	</div>
 	</mat-card-header>
 	<mat-card-content id="textSection">
 		<p>
