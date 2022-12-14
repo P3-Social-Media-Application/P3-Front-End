@@ -4,6 +4,7 @@ The frontend of this project can be run either locally or remotely.
 
 <h3>To run locally:</h3>
 <ol type="1">
+  <li>Make sure Node.js and TypeScript are installed correctly on your machine. There are several ways to achieve this.</li>
   <li>Navigate to the <code>src/</code> folder and run <code>npm install</code> in the command line.</li>
   <li>Next, run <code>npm start</code> in the command line. This will start the frontend.</li>
   <li>The frontend can be visited at <a href="http://localhost:4200/">http://localhost:4200/</a>.</li>
