@@ -1,5 +1,6 @@
 # SocialMediaAngular
 
+This is the frontend of team 1's project 3. Uses Angular and can be deployed on an AWS EC2.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6.
 
 ## Development server
