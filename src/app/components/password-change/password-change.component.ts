@@ -43,11 +43,12 @@ export class PasswordChangeComponent implements OnInit {
   } 
 
   openSnackBarA(){
-    this._snackBar.open("Password Changed","Close"),
+    this._snackBar.open("Password Changed","Close",{duration:4000}),
     this.router.navigate(["/post-feed"])
+    
   }
   openSnackBarB(){
-    this._snackBar.open("Error, Incorrect Current Password","Close")
+    this._snackBar.open("Error, Incorrect Current Password","Close", {duration:4000})
     this.router.navigate(["/post-feed"])
   }
   
